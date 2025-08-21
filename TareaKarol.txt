@@ -1,0 +1,90 @@
+import java.util.Scanner;
+
+public class CalculadoraCompra {
+
+    public static void main(String[] args) {
+        // Primera parte: Calculadora de Compra
+        calcularCompra();
+        
+        // Segunda parte: Calculadora de Operaciones Básicas
+        calcularOperaciones();
+    }
+    
+    public static void calcularCompra() {
+        final double TASA_IMPUESTO = 0.15; // 15% de impuesto
+        
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("=== CALCULADORA DE COMPRA ===");
+        
+        System.out.print("Ingrese el precio unitario del artículo: ");
+        double precioUnitario = scanner.nextDouble();
+        
+        System.out.print("Ingrese la cantidad de artículos: ");
+        int cantidad = scanner.nextInt();
+        
+        System.out.print("Ingrese la cantidad pagada por el cliente: ");
+        double cantidadPagada = scanner.nextDouble();
+        
+        // Consumir el salto de línea
+        scanner.nextLine();
+        
+        // Cálculos
+        double subtotal = precioUnitario * cantidad;
+        double montoImpuesto = subtotal * TASA_IMPUESTO;
+        double totalCompra = subtotal + montoImpuesto;
+        double cambio = cantidadPagada - totalCompra;
+        
+        System.out.println("\n--- Resumen de la Compra ---");
+        System.out.printf("Subtotal: $%.2f%n", subtotal);
+        System.out.printf("Impuesto (%.0f%%): $%.2f%n", TASA_IMPUESTO * 100, montoImpuesto);
+        System.out.printf("Total de la Compra: $%.2f%n", totalCompra);
+        System.out.printf("Cantidad Pagada: $%.2f%n", cantidadPagada);
+        System.out.printf("Cambio: $%.2f%n", cambio);
+        System.out.println("----------------------------");
+        
+        if (cambio < 0) {
+            System.out.println("¡ADVERTENCIA! El cliente no pagó suficiente. Faltan: $" + String.format("%.2f", Math.abs(cambio)));
+        } else {
+            System.out.println("¡Gracias por su compra!");
+        }
+    }
+    
+    public static void calcularOperaciones() {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("\n\n=== CALCULADORA DE OPERACIONES BÁSICAS ===");
+        
+        System.out.print("Ingrese el primer número: ");
+        double numero1 = scanner.nextDouble();
+        
+        System.out.print("Ingrese el segundo número: ");
+        double numero2 = scanner.nextDouble();
+        
+        // Consumir el salto de línea
+        scanner.nextLine();
+        
+        // Realizar operaciones
+        double suma = numero1 + numero2;
+        double resta = numero1 - numero2;
+        double multiplicacion = numero1 * numero2;
+        
+        System.out.println("\n--- Resultados de las Operaciones ---");
+        System.out.printf("Suma: %.2f + %.2f = %.2f%n", numero1, numero2, suma);
+        System.out.printf("Resta: %.2f - %.2f = %.2f%n", numero1, numero2, resta);
+        System.out.printf("Multiplicación: %.2f * %.2f = %.2f%n", numero1, numero2, multiplicacion);
+        
+        // Manejar la división (evitar división por cero)
+        if (numero2 != 0) {
+            double division = numero1 / numero2;
+            System.out.printf("División: %.2f / %.2f = %.2f%n", numero1, numero2, division);
+        } else {
+            System.out.println("División: No es posible dividir entre cero");
+        }
+        
+        System.out.println("------------------------------------");
+        
+        // Cerrar el scanner
+        scanner.close();
+    }
+}
